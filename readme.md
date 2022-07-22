@@ -2,6 +2,8 @@
 
 The Mertsy SDK allows you to integrate 3D/360 product imaging and capturing functionality into your application. It consists of several modules. Some modules may not be available to you, check your license restrictions.
 
+<img src="https://cappasity.com/wp-content/uploads/2022/07/MertsySDK-scaled.jpg" alt="Mertsy SDK" style="width:1000px;"/>
+
 Instruction:
 
 1. Download mertsy-sdk.aar and save it to the folder 'frameworks'.
