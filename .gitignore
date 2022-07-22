@@ -1,3 +1,16 @@
+# Built application files
+*.apk
+*.aar
+*.ap_
+*.aab
+
+# Gradle files
+.gradle/
+build/
+
+# Local configuration file (sdk path, etc)
+local.properties
+
 # IntelliJ
 *.iml
 .idea/workspace.xml
@@ -10,12 +23,18 @@
 # Android Studio 3 in .gitignore file.
 .idea/caches
 .idea/modules.xml
-# Comment next line if keeping position of elements in Navigation Editor is relevant for you
-.idea/navEditor.xml
-# Keystore files
-# Uncomment the following lines if you do not want to check your keystore files in.
-#*.jks
-#*.keystore
+
+# Freeline
+freeline.py
+freeline/
+freeline_project_description.json
+
+# fastlane
+fastlane/report.xml
+fastlane/Preview.html
+fastlane/screenshots
+fastlane/test_output
+fastlane/readme.md
 
 # Version control
 vcs.xml
