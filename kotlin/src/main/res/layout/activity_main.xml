@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    tools:ignore="HardcodedText"
+    tools:context="com.mertsy.kotlinsample.MainActivity">
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnPanorama"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:textAllCaps="false"
+        android:text="Panorama" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnCarsAndVehicles"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:textAllCaps="false"
+        android:text="Cars and vehicles" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnIndoor"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:textAllCaps="false"
+        android:text="Indoor" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnViewModel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:textAllCaps="false"
+        android:text="View model" />
+
+</androidx.appcompat.widget.LinearLayoutCompat>
