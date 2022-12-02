@@ -1,12 +1,14 @@
 package com.mertsy.kotlinsample
 
 import android.Manifest
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.os.Build
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import com.mertsy.kotlinsample.capturing.CarsAndVehiclesActivity
 import com.mertsy.kotlinsample.capturing.IndoorActivity
 import com.mertsy.kotlinsample.capturing.PanoramaActivity
@@ -14,10 +16,18 @@ import com.mertsy.kotlinsample.view.ModelViewActivity
 
 class MainActivity : AppCompatActivity(R.layout.activity_main) {
 
+    private val Context.hasStoragePermission: Boolean get() = isPermissionGranted(targetStoragePermission)
+    private val Context.hasCameraPermission get() = isPermissionGranted(Manifest.permission.CAMERA)
+
+    private val targetStoragePermission: String
+        get() = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            Manifest.permission.READ_MEDIA_IMAGES
+        } else Manifest.permission.WRITE_EXTERNAL_STORAGE
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setOnClickListeners()
-        checkPermissions()
+        requestCameraAndStoragePermissions()
     }
 
     private fun setOnClickListeners() {
@@ -55,15 +65,16 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
         }
     }
 
-    private fun checkPermissions() {
-        val hasPermissions = ActivityCompat.checkSelfPermission(
-            this,
+    private fun requestCameraAndStoragePermissions() {
+        val permissions = arrayOf(
+            targetStoragePermission,
             Manifest.permission.CAMERA
-        ) == PackageManager.PERMISSION_GRANTED
-
-        if (!hasPermissions) {
-            ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.CAMERA), 100)
-        }
+        )
+        if (!hasStoragePermission || !hasCameraPermission)
+            requestPermissions(permissions, 123)
     }
 
+    private fun Context.isPermissionGranted(permission: String): Boolean {
+        return ContextCompat.checkSelfPermission(this, permission) == PackageManager.PERMISSION_GRANTED
+    }
 }
