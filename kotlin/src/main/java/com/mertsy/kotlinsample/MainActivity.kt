@@ -6,13 +6,20 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
+import android.util.Log
 import android.view.View
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import com.mertsy.common.TokenStatus
 import com.mertsy.kotlinsample.capturing.CarsAndVehiclesActivity
 import com.mertsy.kotlinsample.capturing.IndoorActivity
 import com.mertsy.kotlinsample.capturing.PanoramaActivity
 import com.mertsy.kotlinsample.view.ModelViewActivity
+import com.mertsy.sdk.MertsySDK.setOnTokenStatusChangedListener
+import com.mertsy.sdk.OnTokenStatusChangedListener
 
 class MainActivity : AppCompatActivity(R.layout.activity_main) {
 
@@ -28,6 +35,17 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
         super.onCreate(savedInstanceState)
         setOnClickListeners()
         requestCameraAndStoragePermissions()
+        setOnTokenStatusChangedListener(OnTokenStatusChangedListener { tokenStatus: TokenStatus ->
+            Log.e("Your SDK token status", tokenStatus.name)
+            if (tokenStatus == TokenStatus.ERROR) {
+                Handler(Looper.getMainLooper()).post {
+                    AlertDialog.Builder(this)
+                        .setMessage("Your token is invalid. Fix it in App.kt class")
+                        .setCancelable(false)
+                        .create().show()
+                }
+            }
+        })
     }
 
     private fun setOnClickListeners() {
