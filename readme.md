@@ -39,7 +39,7 @@ Java:
 SDK access: support@cappasity.com
 Website - https://cappasity.com/contact/
 
-Copyright (c) 2022, Cappasity Inc. All rights reserved.
+Copyright (c) 2022-2023, Cappasity Inc. All rights reserved.
 
 Neither the name of Cappasity Inc., nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.
 
