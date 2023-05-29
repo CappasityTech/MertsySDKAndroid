@@ -11,6 +11,7 @@ Instruction:
 
 Kotlin:
 
+```kotlin
   class App : Application() {
 
       override fun onCreate() {
@@ -18,9 +19,11 @@ Kotlin:
           MertsySDK.init(this, "YOUR TOKEN HERE")
       }
   }
-  
+```
+
 Java:
 
+```java
   public class App extends Application {
 
       @Override
@@ -29,6 +32,7 @@ Java:
           MertsySDK.init(this, "YOUR TOKEN HERE");
       }
   }
+```
 
 3. Launch the app. Select a shooting mode (Panorama, Cars and Vehicles, Indoor) and follow the instructions.
 4. When the capture is complete, the link to the new model will be copied to the clipboard.
