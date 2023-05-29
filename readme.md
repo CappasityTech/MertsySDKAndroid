@@ -1,4 +1,4 @@
-# Mertsy SDK for Android. Sample.
+# Mertsy SDK for Android. 3D capturing sample.
 
 The Mertsy SDK allows you to integrate 3D/360 product imaging and capturing functionality into your application. It consists of several modules. Some modules may not be available to you, check your license restrictions.
 
@@ -6,8 +6,8 @@ The Mertsy SDK allows you to integrate 3D/360 product imaging and capturing func
 
 Instruction:
 
-1. Download mertsy-sdk.aar and save it to the folder 'frameworks'.
-2. To initialize SDK, use your Access Token in the init method.
+1. Download mertsy-sdk.aar and save it in your "frameworks" folder.
+2. To initialize the SDK, use your Mertsy SDK Access Token in the init method.
 
 Kotlin:
 
@@ -30,16 +30,16 @@ Java:
       }
   }
 
-3. Launch the app. Select the capturing mode (Panorama, Cars or Indoor) and follow the prompts.
-4. When the capturing is completed, a link to the new model will be copied to the clipboard.
-5. Select the 'View model' mode and in the text field paste the modelID, SKU/VIN of the model or a link (3d.cappasity.com/u/...) to the model. Click Search.
+3. Launch the app. Select a shooting mode (Panorama, Automotive or Indoor) and follow the instructions.
+4. When the capture is complete, the link to the new model will be copied to the clipboard.
+5. Select "View Model" mode and in the text field paste the model ID, model SKU/VIN or link (3d.cappasity.com/u/...) to the model. Click Search.
 
 # Contact us
 
 SDK access: support@cappasity.com
 Website - https://cappasity.com/contact/
 
-Copyright (c) 2022-2023, Cappasity Inc. All rights reserved.
+Copyright (c) 2022-2023 Cappasity Inc. All rights reserved.
 
 Neither the name of Cappasity Inc., nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.
 
