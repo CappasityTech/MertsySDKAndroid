@@ -30,7 +30,7 @@ Java:
       }
   }
 
-3. Launch the app. Select a shooting mode (Panorama, Automotive or Indoor) and follow the instructions.
+3. Launch the app. Select a shooting mode (Panorama, Cars and Vehicles, Indoor) and follow the instructions.
 4. When the capture is complete, the link to the new model will be copied to the clipboard.
 5. Select "View Model" mode and in the text field paste the model ID, model SKU/VIN or link (3d.cappasity.com/u/...) to the model. Click Search.
 
