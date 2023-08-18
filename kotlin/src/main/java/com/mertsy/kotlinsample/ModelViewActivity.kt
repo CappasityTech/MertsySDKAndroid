@@ -1,4 +1,4 @@
-package com.mertsy.kotlinsample.view
+package com.mertsy.kotlinsample
 
 import android.os.Bundle
 import android.view.View
@@ -8,8 +8,8 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatButton
 import androidx.appcompat.widget.AppCompatEditText
+import androidx.core.view.isVisible
 import com.mertsy.common.util.exception.MertsyException
-import com.mertsy.kotlinsample.R
 import com.mertsy.view.MertsyModel
 import com.mertsy.view.MertsyModelView
 import com.mertsy.view.MertsyModelViewParams
@@ -43,32 +43,39 @@ class ModelViewActivity : AppCompatActivity() {
         val isUrl = searchText.contains("https://")
 
         if (!isUrl) {
-            MertsyViewer.getModel(searchText, ::showModelView, ::showErrorToast)
+            MertsyViewer.getModel(
+                searchText,
+                ::showModelView,
+                onFailure = ::handleError)
         } else {
-            MertsyViewer.getModelByLink(searchText, ::showModelView, ::showErrorToast)
+            MertsyViewer.getModelByLink(
+                searchText,
+                ::showModelView,
+                onFailure = ::handleError)
         }
     }
 
     private fun showModelView(mertsyModel: MertsyModel) {
-        modelView.loadModel(mertsyModel, MertsyModelViewParams(), onModelReady = {
-            inputsContainer.visibility = View.GONE
-        }, onLoadingFailed = { exception ->
-            hideLoading()
-            showErrorToast(exception)
-        })
+        modelView.loadModel(mertsyModel, MertsyModelViewParams(
+            autoRun = true, hideHints = true
+        ), onModelReady = {
+            inputsContainer.isVisible = false
+        }, onLoadingFailed = ::handleError)
     }
 
-    private fun showErrorToast(exception: MertsyException) {
-        Toast.makeText(this@ModelViewActivity, exception.message, Toast.LENGTH_LONG).show()
+    private fun handleError(exception: MertsyException) {
+        hideLoading()
+        showToast(exception.toString())
+        exception.printStackTrace()
     }
 
     private fun hideLoading() {
-        pbLoading.visibility = View.GONE
-        btnSearch.visibility = View.VISIBLE
+        pbLoading.isVisible = false
+        btnSearch.isVisible = true
     }
 
     private fun showLoading() {
-        pbLoading.visibility = View.VISIBLE
-        btnSearch.visibility = View.GONE
+        pbLoading.isVisible = true
+        btnSearch.isVisible = false
     }
 }

@@ -32,17 +32,11 @@
         </activity>
 
         <activity
-            android:name="com.mertsy.kotlinsample.capturing.PanoramaActivity"
+            android:name="com.mertsy.kotlinsample.CapturingActivity"
             android:screenOrientation="portrait" />
 
-        <activity
-            android:name="com.mertsy.kotlinsample.capturing.CarsAndVehiclesActivity"
-            android:screenOrientation="portrait" />
 
-        <activity android:name="com.mertsy.kotlinsample.capturing.IndoorActivity"
-            android:screenOrientation="portrait"/>
-
-        <activity android:name=".view.ModelViewActivity"
+        <activity android:name=".ModelViewActivity"
             android:screenOrientation="portrait"/>
 
         <service
