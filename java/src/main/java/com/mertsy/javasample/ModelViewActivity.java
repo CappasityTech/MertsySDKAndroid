@@ -1,36 +1,35 @@
-package com.mertsy.javasample.view;
+package com.mertsy.javasample;
 
 import android.os.Bundle;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.AppCompatEditText;
 
 import com.mertsy.common.util.exception.MertsyException;
-import com.mertsy.javasample.R;
 import com.mertsy.view.MertsyModel;
 import com.mertsy.view.MertsyModelView;
 import com.mertsy.view.MertsyModelViewParams;
 import com.mertsy.view.MertsyViewer;
 
-public class ModelViewActivity extends AppCompatActivity {
+import java.util.Objects;
 
-    AppCompatButton btnSearch;
-    AppCompatEditText etModelIdOrUrl;
-    ProgressBar pbLoading;
-    LinearLayout inputsContainer;
+public class ModelViewActivity extends BaseActivity {
 
-    MertsyModelView modelView;
+    private AppCompatButton btnSearch;
+    private AppCompatEditText etModelIdOrUrl;
+    private ProgressBar pbLoading;
+    private LinearLayout inputsContainer;
+    private MertsyModelView modelView;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_model_view);
 
         btnSearch = findViewById(R.id.btnSearch);
@@ -38,67 +37,61 @@ public class ModelViewActivity extends AppCompatActivity {
         pbLoading = findViewById(R.id.pbLoading);
         inputsContainer = findViewById(R.id.llInputsContainer);
         modelView = findViewById(R.id.mertsyModelView);
-
-        btnSearch.setOnClickListener((v -> {
-            onSearchClicked();
-        }));
-
+        btnSearch.setOnClickListener(v -> onSearchClicked());
     }
 
     private void onSearchClicked() {
-        String searchText = etModelIdOrUrl.getText().toString();
-
+        String searchText = Objects.requireNonNull(etModelIdOrUrl.getText()).toString();
         if (searchText.isEmpty()) {
             return;
         }
-
         showLoading();
-
         boolean isUrl = searchText.contains("https://");
 
-        MertsyViewer.ModelCallback resultCallback = new MertsyViewer.ModelCallback() {
+        MertsyViewer.ModelCallback callback = new MertsyViewer.ModelCallback() {
             @Override
             public void onSuccess(@NonNull MertsyModel mertsyModel) {
-                showModelView(mertsyModel);
+                displayModel(mertsyModel);
             }
 
             @Override
             public void onFailure(@NonNull MertsyException e) {
-                hideLoading();
-                showErrorToast(e);
+                handleError(e);
             }
         };
 
-        if (!isUrl) {
-            MertsyViewer.getModel(searchText, resultCallback);
-        } else {
-            MertsyViewer.getModelByLink(searchText, resultCallback);
-        }
+        if (!isUrl)
+            MertsyViewer.getModel(searchText, callback);
+        else
+            MertsyViewer.getModelByLink(searchText, callback);
 
     }
 
-    private void showModelView(MertsyModel mertsyModel) {
+    private void displayModel(MertsyModel model) {
 
-        MertsyModelView.OnModelLoadListener loadModelListener = new MertsyModelView.OnModelLoadListener() {
+        MertsyModelViewParams params = new MertsyModelViewParams.Builder()
+                .autoRun(true)
+                .hideHints(true)
+                .build();
+
+        modelView.loadModel(model, params, new MertsyModelView.OnModelLoadListener() {
+            @Override
+            public void onLoadingFailed(@NonNull MertsyException e) {
+                handleError(e);
+            }
+
             @Override
             public void onModelReady() {
                 inputsContainer.setVisibility(View.GONE);
             }
-
-            @Override
-            public void onLoadingFailed(@NonNull MertsyException e) {
-                hideLoading();
-                showErrorToast(e);
-            }
-        };
-
-        modelView.loadModel(mertsyModel, new MertsyModelViewParams.Builder().build(), loadModelListener);
+        });
 
     }
 
-
-    private void showErrorToast(MertsyException exception) {
-        Toast.makeText(ModelViewActivity.this, exception.getMessage(), Toast.LENGTH_LONG).show();
+    private void handleError(MertsyException exception) {
+        hideLoading();
+        showToast(exception.toString());
+        exception.printStackTrace();
     }
 
     private void hideLoading() {
@@ -110,6 +103,5 @@ public class ModelViewActivity extends AppCompatActivity {
         pbLoading.setVisibility(View.VISIBLE);
         btnSearch.setVisibility(View.GONE);
     }
-
 
 }

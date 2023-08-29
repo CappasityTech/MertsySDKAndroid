@@ -47,12 +47,13 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
         //Required for capturing
         requestCameraAndStoragePermissions()
 
+        findViewById<AppCompatTextView>(R.id.tvTokenStatus).text = "Token status: Checking"
+
         MertsySDK.onTokenStatusChangedCallback = { status: TokenStatus ->
             val prefix = "Token status: "
             findViewById<AppCompatTextView>(R.id.tvTokenStatus).text = when (status) {
-                TokenStatus.CHECKING -> prefix + "Checking"
-                TokenStatus.ERROR -> prefix + "Error"
                 TokenStatus.SUCCESS -> prefix + "Success"
+                else -> prefix + "Error"
             }
         }
 
@@ -93,24 +94,6 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
         }
     }
 
-    private fun checkTokenAndExecute(action: () -> Unit) {
-        when (MertsySDK.tokenStatus) {
-            TokenStatus.CHECKING -> {
-                val msg = "Token validation. Try again later"
-                Log.e(TAG, msg)
-                showToast(msg)
-            }
-
-            TokenStatus.ERROR -> {
-                val msg = "Wrong token"
-                Log.e(TAG, msg)
-                showToast(msg)
-            }
-
-            TokenStatus.SUCCESS -> action.invoke()
-        }
-    }
-
     override fun onStart() {
         super.onStart()
         //Ask user to restore his session
@@ -129,6 +112,24 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
                 MertsyCapturing.clearSessionCaches()
                 llSessionPreview.isVisible = false
             }
+        }
+    }
+
+    private fun checkTokenAndExecute(action: () -> Unit) {
+        when (MertsySDK.tokenStatus) {
+            TokenStatus.CHECKING -> {
+                val msg = "Token validation. Try again later"
+                Log.e(TAG, msg)
+                showToast(msg)
+            }
+
+            TokenStatus.ERROR -> {
+                val msg = "Wrong token"
+                Log.e(TAG, msg)
+                showToast(msg)
+            }
+
+            TokenStatus.SUCCESS -> action.invoke()
         }
     }
 
