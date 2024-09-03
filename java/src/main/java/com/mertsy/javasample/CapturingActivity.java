@@ -23,7 +23,7 @@ public class CapturingActivity extends BaseActivity {
 
         MertsyCapturingView capturingView = findViewById(R.id.capturingView);
 
-        //Or inside xml xml app:platformaCapturingType
+        //Or inside xml app:mertsyCapturingType
         if (type != null)
             capturingView.setCapturingType(type);
 

@@ -18,7 +18,7 @@ class CapturingActivity: AppCompatActivity(R.layout.activity_capturing) {
 
         with(findViewById<MertsyCapturingView>(R.id.capturingView)) {
 
-            //Or inside xml xml app:platformaCapturingType
+            //Or inside xml xml app:mertsyCapturingType
             type?.let { setCapturingType(it) }
 
             setLifecycleOwner(this@CapturingActivity)
